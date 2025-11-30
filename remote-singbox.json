@@ -441,20 +441,16 @@
     ],
     "rule_set": [
       {
-        "type": "remote",
+        "type": "local",
         "tag": "FB-CIDR",
         "format": "source",
-        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo-lite/geoip/facebook.json",
-        "download_detour": "🚀 Latency",
-        "update_interval": "24h"
+        "path": "rules/facebook.json"
       },
       {
-        "type": "remote",
+        "type": "local",
         "tag": "Geo-ID",
         "format": "source",
-        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/id.json",
-        "download_detour": "🚀 Latency",
-        "update_interval": "24h"
+        "path": "rules/id.json"
       }
     ],
     "final": "🌐 Internet",
