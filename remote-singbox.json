@@ -315,7 +315,8 @@
           "com.facebook.lite",
           "com.facebook.adsmanager",
           "com.facebook.orca",
-          "com.facebook.mlite"
+          "com.facebook.mlite",
+          "com.instagram.android"
         ],
         "domain_regex": [
           "^(.*\\.)?(faceb[o0a]{1,2}k|fb)\\.(com|net|org|info|us|cc|tv|shop|design)$",
