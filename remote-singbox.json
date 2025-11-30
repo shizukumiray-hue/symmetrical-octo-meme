@@ -24,14 +24,24 @@
         "server": "1.1.1.1"
       },
       {
+        "type": "https",
+        "tag": "google-dns",
+        "detour": "🚀 Latency",
+        "domain_resolver": {
+          "server": "dns-xl-v6",
+          "strategy": "prefer_ipv4"
+        },
+        "server": "8.8.8.8",
+        "server_port": 443
+      },
+      {
         "type": "udp",
         "tag": "dns-xl-v6",
         "domain_resolver": {
           "server": "dns-xl-v4",
           "strategy": "prefer_ipv4"
         },
-        "server": "2400:9800:1b::246",
-        "server_port": 53
+        "server": "2400:9800:1b::246"
       },
       {
         "type": "udp",
@@ -66,6 +76,14 @@
         "server": "dns-xl-v6"
       },
       {
+        "domain": [
+          "api24-normal.tiktokv.com",
+          "api24-normal-alisg.tiktokv.com",
+          "api24-normal-useast1a.tiktokv.com"
+        ],
+        "server": "google-dns"
+      },
+      {
         "query_type": [
           "A",
           "AAAA"
@@ -90,15 +108,17 @@
       "type": "tun",
       "tag": "tun-in",
       "interface_name": "tunelm0n",
-      "mtu": 1690,
+      "mtu": 1500,
       "address": [
         "172.18.0.1/30",
         "fdfe:dcba:9876::1/126"
       ],
       "auto_route": true,
-      "stack": "system",
+      "stack": "mixed",
       "sniff": true,
-      "endpoint_independent_nat": true
+      "endpoint_independent_nat": true,
+      "strict_route": false,
+      "auto_redirect": false
     }
   ],
   "outbounds": [
