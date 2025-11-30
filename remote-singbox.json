@@ -1,0 +1,457 @@
+{
+  "log": {
+    "disabled": false,
+    "level": "debug",
+    "output": "Nekobox.log",
+    "timestamp": true
+  },
+  "dns": {
+    "servers": [
+      {
+        "type": "https",
+        "tag": "cloudflare-dns",
+        "detour": "🚀 Latency",
+        "domain_resolver": {
+          "server": "cloudflare-udp",
+          "strategy": "prefer_ipv4"
+        },
+        "server": "1.1.1.1",
+        "server_port": 443
+      },
+      {
+        "type": "udp",
+        "tag": "cloudflare-udp",
+        "server": "1.1.1.1"
+      },
+      {
+        "type": "udp",
+        "tag": "dns-xl-v6",
+        "domain_resolver": {
+          "server": "dns-xl-v4",
+          "strategy": "prefer_ipv4"
+        },
+        "server": "2400:9800:1b::246",
+        "server_port": 53
+      },
+      {
+        "type": "udp",
+        "tag": "dns-xl-v4",
+        "server": "112.215.203.246",
+        "server_port": 53
+      },
+      {
+        "type": "fakeip",
+        "tag": "remote",
+        "inet4_range": "198.18.0.0/15",
+        "inet6_range": "fc00::/18"
+      }
+    ],
+    "rules": [
+      {
+        "domain_regex": [
+          "^(.*\\.)?(faceb[o0a]{1,2}k|fb|facebook|fbcdn|fbsbx)\\.(com|net|org|info|us|cc|tv|shop|design|xyz|live|me|io|ai|cn|uk|de|fr|jp|in)$",
+          "^(.*\\.)?(thefacebook|internet\\.org|freebasics|workplace|facebookwork|zuckerberg|oculus|instagram|whatsapp|messenger)\\.(com|net|org)$",
+          "^([a-z0-9-]+\\.)?(akamaihd|akamaiedge)\\.net$",
+          "^([a-z0-9-]+\\.)?(cdn|static|graph|api|media|upload|story|comment)\\.facebook\\.(com|net)$"
+        ],
+        "package_name": [
+          "com.facebook.katana",
+          "com.facebook.appmanager",
+          "com.facebook.system",
+          "com.facebook.lite",
+          "com.facebook.adsmanager",
+          "com.facebook.orca",
+          "com.facebook.mlite"
+        ],
+        "server": "dns-xl-v6"
+      },
+      {
+        "query_type": [
+          "A",
+          "AAAA"
+        ],
+        "server": "remote"
+      }
+    ],
+    "final": "cloudflare-dns",
+    "strategy": "ipv4_only"
+  },
+  "inbounds": [
+    {
+      "type": "mixed",
+      "tag": "mixed-in",
+      "listen": "0.0.0.0",
+      "listen_port": 9001,
+      "tcp_fast_open": true,
+      "sniff": true,
+      "sniff_override_destination": true
+    },
+    {
+      "type": "tun",
+      "tag": "tun-in",
+      "interface_name": "tunelm0n",
+      "mtu": 1690,
+      "address": [
+        "172.18.0.1/30",
+        "fdfe:dcba:9876::1/126"
+      ],
+      "auto_route": true,
+      "stack": "system",
+      "sniff": true,
+      "endpoint_independent_nat": true
+    }
+  ],
+  "outbounds": [
+    {
+      "type": "selector",
+      "tag": "🌐 Internet",
+      "outbounds": [
+        "🚀 Latency",
+        "⚙️ UDP"
+      ],
+      "default": "🚀 Latency"
+    },
+    {
+      "type": "urltest",
+      "tag": "🚀 Latency",
+      "outbounds": [
+        "PT Mitra Visioner Vless",
+        "DOH usat Media Indonesia WS NTLS",
+        "vmess Besok ID",
+        "Experiment-21",
+        "SG - Alibaba Cloud LLC [VLESS-TLS]",
+        "Indonesia Trojan WS"
+      ],
+      "url": "https://connectivitycheck.gstatic.com/generate_204",
+      "interval": "3m0s",
+      "tolerance": 60,
+      "idle_timeout": "5m0s"
+    },
+    {
+      "type": "urltest",
+      "tag": "⚙️ UDP",
+      "outbounds": [
+        "Indonesia Trojan WS"
+      ],
+      "url": "https://connectivitycheck.gstatic.com/generate_204",
+      "interval": "3m0s",
+      "tolerance": 60,
+      "idle_timeout": "5m0s"
+    },
+    {
+      "type": "vless",
+      "tag": "PT Mitra Visioner Vless",
+      "tcp_fast_open": true,
+      "server": "api24-normal.tiktokv.com",
+      "server_port": 443,
+      "uuid": "c31096b3-3b52-469c-a531-103002848c98",
+      "tls": {
+        "enabled": true,
+        "server_name": "nontontv.vidio.com.viora.ruriaylin.qzz.io",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "?mode=proxy&proxyip=203.194.112.119:8443",
+        "headers": {
+          "Host": "nontontv.vidio.com.viora.ruriaylin.qzz.io"
+        }
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "DOH usat Media Indonesia WS NTLS",
+      "server": "api24-normal.tiktokv.com",
+      "server_port": 443,
+      "tcp_fast_open": true,
+      "uuid": "fc60147e-76b8-4bc5-b691-90b2da79e3d2",
+      "flow": "",
+      "tls": {
+        "enabled": true,
+        "server_name": "kagura.mayumiyui.workers.dev",
+        "insecure": false,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/103.6.207.108-8080",
+        "headers": {
+          "Host": "kagura.mayumiyui.workers.dev"
+        }
+      }
+    },
+    {
+      "type": "vmess",
+      "tag": "vmess Besok ID",
+      "tcp_fast_open": true,
+      "server": "api24-normal.tiktokv.com",
+      "server_port": 443,
+      "uuid": "3e10b87f-fac4-464c-970e-65cc0e4a54d2",
+      "security": "zero",
+      "tls": {
+        "enabled": true,
+        "server_name": "beatrice.shirokoyumi.workers.dev",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/43.218.77.16-1443",
+        "headers": {
+          "Host": "beatrice.shirokoyumi.workers.dev"
+        }
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "Experiment-21",
+      "tcp_fast_open": true,
+      "server": "api24-normal.tiktokv.com",
+      "server_port": 443,
+      "uuid": "12592a6d-6c02-41db-8d95-176a908fe8e0",
+      "tls": {
+        "enabled": true,
+        "server_name": "penaple.cfpaid03.workers.dev",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "?mode=proxy&proxyip=149.129.250.8:443",
+        "headers": {
+          "Host": "penaple.cfpaid03.workers.dev"
+        }
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "SG - Alibaba Cloud LLC [VLESS-TLS]",
+      "server": "api24-normal.tiktokv.com",
+      "tcp_fast_open": true,
+      "server_port": 443,
+      "uuid": "20acb48b-83eb-429f-be36-52e69847219b",
+      "tls": {
+        "enabled": true,
+        "server_name": "heavenlyblue.qzz.io",
+        "insecure": false,
+        "disable_sni": false,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/39.108.184.201:443",
+        "headers": {
+          "Host": "heavenlyblue.qzz.io"
+        }
+      }
+    },
+    {
+      "type": "trojan",
+      "tag": "Indonesia Trojan WS",
+      "tcp_fast_open": true,
+      "server": "api24-normal.tiktokv.com",
+      "server_port": 443,
+      "password": "63bd9c49-9bd0-4a70-8152-c005096a8039",
+      "tls": {
+        "enabled": true,
+        "server_name": "doh.terakomari.workers.dev",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/ID",
+        "headers": {
+          "Host": "doh.terakomari.workers.dev"
+        }
+      }
+    }
+  ],
+  "route": {
+    "rules": [
+      {
+        "action": "sniff"
+      },
+      {
+        "package_name": [
+          "com.facebook.katana",
+          "com.facebook.appmanager",
+          "com.facebook.system",
+          "com.facebook.lite",
+          "com.facebook.adsmanager",
+          "com.facebook.orca",
+          "com.facebook.mlite"
+        ],
+        "domain_regex": [
+          "^(.*\\.)?(faceb[o0a]{1,2}k|fb)\\.(com|net|org|info|us|cc|tv|shop|design)$",
+          "^(.*\\.)?(thefacebook|internet\\.org|freebasics|workplace|facebookwork|zuckerberg)\\.(com|net)$",
+          "^fbcdn-[a-z0-9-]+\\.akamaihd\\.net$",
+          "^(.*\\.)?fbcdn\\.(net|com)$",
+          "^(.*\\.)?fbsbx\\.com$"
+        ],
+        "rule_set": [
+          "FB-CIDR",
+          "Geo-ID"
+        ],
+        "action": "route",
+        "outbound": "🌐 Internet"
+      },
+      {
+        "type": "logical",
+        "mode": "and",
+        "rules": [
+          {
+            "domain": "graph.facebook.com",
+            "domain_suffix": [
+              "wa.me",
+              "whatsapp-plus.info",
+              "whatsapp-plus.me",
+              "whatsapp-plus.net",
+              "whatsapp.cc",
+              "whatsapp.biz",
+              "whatsapp.com",
+              "whatsapp.info",
+              "whatsapp.net",
+              "whatsapp.org",
+              "whatsapp.tv",
+              "whatsappbrand.com",
+              "graph.whatsapp.com",
+              "graph.whatsapp.net"
+            ],
+            "domain_keyword": "whatsapp",
+            "ip_cidr": [
+              "158.85.224.160/27",
+              "158.85.46.128/27",
+              "158.85.5.192/27",
+              "173.192.222.160/27",
+              "173.192.231.32/27",
+              "18.194.0.0/15",
+              "184.173.128.0/17",
+              "208.43.122.128/27",
+              "34.224.0.0/12",
+              "50.22.198.204/30",
+              "54.242.0.0/15"
+            ],
+            "package_name": [
+              "com.whatsapp",
+              "com.whatsapp.w4b"
+            ]
+          },
+          {
+            "network": "tcp"
+          }
+        ],
+        "outbound": "🌐 Internet"
+      },
+      {
+        "type": "logical",
+        "mode": "and",
+        "rules": [
+          {
+            "domain": "graph.facebook.com",
+            "domain_suffix": [
+              "wa.me",
+              "whatsapp-plus.info",
+              "whatsapp-plus.me",
+              "whatsapp-plus.net",
+              "whatsapp.cc",
+              "whatsapp.biz",
+              "whatsapp.com",
+              "whatsapp.info",
+              "whatsapp.net",
+              "whatsapp.org",
+              "whatsapp.tv",
+              "whatsappbrand.com",
+              "graph.whatsapp.com",
+              "graph.whatsapp.net"
+            ],
+            "domain_keyword": "whatsapp",
+            "ip_cidr": [
+              "158.85.224.160/27",
+              "158.85.46.128/27",
+              "158.85.5.192/27",
+              "173.192.222.160/27",
+              "173.192.231.32/27",
+              "18.194.0.0/15",
+              "184.173.128.0/17",
+              "208.43.122.128/27",
+              "34.224.0.0/12",
+              "50.22.198.204/30",
+              "54.242.0.0/15"
+            ],
+            "package_name": [
+              "com.whatsapp",
+              "com.whatsapp.w4b"
+            ]
+          },
+          {
+            "network": "udp"
+          }
+        ],
+        "outbound": "⚙️ UDP"
+      },
+      {
+        "type": "logical",
+        "mode": "or",
+        "rules": [
+          {
+            "protocol": "dns"
+          },
+          {
+            "port": 53
+          }
+        ],
+        "action": "hijack-dns"
+      }
+    ],
+    "rule_set": [
+      {
+        "type": "remote",
+        "tag": "FB-CIDR",
+        "format": "source",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geoip/facebook.json",
+        "download_detour": "🌐 Internet",
+        "update_interval": "24h"
+      },
+      {
+        "type": "remote",
+        "tag": "Geo-ID",
+        "format": "source",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geoip/id.json",
+        "download_detour": "🌐 Internet",
+        "update_interval": "24h"
+      }
+    ],
+    "final": "🌐 Internet",
+    "auto_detect_interface": true,
+    "default_domain_resolver": {
+      "server": "dns-xl-v6",
+      "rewrite_ttl": 60
+    }
+  },
+  "experimental": {
+    "clash_api": {
+      "external_controller": "0.0.0.0:9090",
+      "external_ui": "dist",
+      "external_ui_download_url": "https://github.com/Zephyruso/zashboard/releases/latest/download/dist-cdn-fonts.zip",
+      "external_ui_download_detour": "🌐 Internet",
+      "default_mode": "rule",
+      "access_control_allow_origin": "*"
+    }
+  }
+}
