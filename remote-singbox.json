@@ -424,16 +424,16 @@
         "type": "remote",
         "tag": "FB-CIDR",
         "format": "source",
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geoip/facebook.json",
-        "download_detour": "🌐 Internet",
+        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo-lite/geoip/facebook.json",
+        "download_detour": "🚀 Latency",
         "update_interval": "24h"
       },
       {
         "type": "remote",
         "tag": "Geo-ID",
         "format": "source",
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geoip/id.json",
-        "download_detour": "🌐 Internet",
+        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/id.json",
+        "download_detour": "🚀 Latency",
         "update_interval": "24h"
       }
     ],
