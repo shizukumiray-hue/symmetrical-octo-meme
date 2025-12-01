@@ -474,41 +474,41 @@
     ],
     "rule_set": [
       {
-        "type": "local",
-        "tag": "FB-CIDR",
-        "format": "binary",
-        "path": "rules/geoip-facebook.srs"
-      },
-      {
-        "type": "local",
-        "tag": "Geo-ID",
-        "format": "binary",
-        "path": "rules/id.srs"
-      },
-      {
-        "type": "local",
-        "tag": "Geosite-FB",
-        "format": "binary",
-        "path": "rules/facebook-geosite.srs"
-      },
-      {
-        "type": "local",
-        "tag": "Dev-FB",
-        "format": "binary",
-        "path": "rules/facebook-dev.srs"
-      },
-      {
-        "type": "local",
-        "tag": "Ads1-FB",
-        "format": "binary",
-        "path": "rules/facebook-ads@ads.srs"
-      },
-      {
-        "type": "local",
-        "tag": "Ads2-FB",
-        "format": "binary",
-        "path": "rules/facebook-ads.srs"
-      }
+    "type": "local",
+    "tag": "FB-CIDR",
+    "format": "binary",
+    "path": "/storage/emulated/0/rules/geoip-facebook.srs"
+  },
+  {
+    "type": "local",
+    "tag": "Geo-ID",
+    "format": "binary",
+    "path": "/storage/emulated/0/rules/id.srs"
+  },
+  {
+    "type": "local",
+    "tag": "Geosite-FB",
+    "format": "binary",
+    "path": "/storage/emulated/0/rules/facebook-geosite.srs"
+  },
+  {
+    "type": "local",
+    "tag": "Dev-FB",
+    "format": "binary",
+    "path": "/storage/emulated/0/rules/facebook-dev.srs"
+  },
+  {
+    "type": "local",
+    "tag": "Ads1-FB",
+    "format": "binary",
+    "path": "/storage/emulated/0/rules/facebook-ads@ads.srs"
+  },
+  {
+    "type": "local",
+    "tag": "Ads2-FB",
+    "format": "binary",
+    "path": "/storage/emulated/0/rules/facebook-ads.srs"
+  }
     ],
     "final": "🌐 Internet",
     "auto_detect_interface": true,
