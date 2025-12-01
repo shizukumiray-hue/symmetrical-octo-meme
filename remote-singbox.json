@@ -76,14 +76,6 @@
         "server": "dns-xl-v6"
       },
       {
-        "domain": [
-          "api24-normal.tiktokv.com",
-          "api24-normal-alisg.tiktokv.com",
-          "api24-normal-useast1a.tiktokv.com"
-        ],
-        "server": "google-dns"
-      },
-      {
         "query_type": [
           "A",
           "AAAA"
