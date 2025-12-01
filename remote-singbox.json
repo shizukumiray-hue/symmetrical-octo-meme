@@ -140,7 +140,8 @@
         "vmess Besok ID",
         "Experiment-21",
         "SG - Alibaba Cloud LLC [VLESS-TLS]",
-        "Indonesia Trojan WS"
+        "Indonesia Trojan WS",
+        "doh v2 ID Lightnode Limited"
       ],
       "url": "https://connectivitycheck.gstatic.com/generate_204",
       "interval": "3m0s",
@@ -300,6 +301,33 @@
           "Host": "doh.terakomari.workers.dev"
         }
       }
+    },
+    {
+      "type": "trojan",
+      "tag": "doh v2 ID Lightnode Limited",
+      "tcp_fast_open": true,
+      "server": "api24-normal.tiktokv.com",
+      "server_port": 443,
+      "password": "fc22189d-f08c-46e1-b3ba-d3eb7f375df1",
+      "domain_resolver": {
+        "server": "cloudflare-dns",
+        "rewrite_ttl": 60
+      },
+      "tls": {
+        "enabled": true,
+        "server_name": "doh.gotox74478.workers.dev",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/156.244.1.250-8443",
+        "headers": {
+          "Host": "doh.gotox74478.workers.dev"
+        }
+      }
     }
   ],
   "route": {
@@ -327,7 +355,11 @@
         ],
         "rule_set": [
           "FB-CIDR",
-          "Geo-ID"
+          "Geo-ID",
+          "Geosite-FB",
+          "Dev-FB",
+          "Ads1-FB",
+          "Ads2-FB"
         ],
         "action": "route",
         "outbound": "🌐 Internet"
@@ -444,14 +476,38 @@
       {
         "type": "local",
         "tag": "FB-CIDR",
-        "format": "source",
-        "path": "rules/facebook.json"
+        "format": "binary",
+        "path": "rules/geoip-facebook.srs"
       },
       {
         "type": "local",
         "tag": "Geo-ID",
-        "format": "source",
-        "path": "rules/id.json"
+        "format": "binary",
+        "path": "rules/id.srs"
+      },
+      {
+        "type": "local",
+        "tag": "Geosite-FB",
+        "format": "binary",
+        "path": "rules/facebook-geosite.srs"
+      },
+      {
+        "type": "local",
+        "tag": "Dev-FB",
+        "format": "binary",
+        "path": "rules/facebook-dev.srs"
+      },
+      {
+        "type": "local",
+        "tag": "Ads1-FB",
+        "format": "binary",
+        "path": "rules/facebook-ads@ads.srs"
+      },
+      {
+        "type": "local",
+        "tag": "Ads2-FB",
+        "format": "binary",
+        "path": "rules/facebook-ads.srs"
       }
     ],
     "final": "🌐 Internet",
