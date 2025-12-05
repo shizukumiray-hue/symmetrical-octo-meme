@@ -71,13 +71,12 @@
           "com.whatsapp"
         ],
         "rule_set": [
-          "Geo-ID",
           "FB-CIDR",
           "Geosite-FB",
           "Dev-FB",
           "geosite-meta"
         ],
-        "server": "cloudflare-dns"
+        "server": "xl-local-dns"
       },
       {
         "query_type": [
@@ -223,7 +222,7 @@
       },
       "transport": {
         "type": "ws",
-        "path": "?mode=proxy&proxyip=149.129.250.8:443",
+        "path": "?mode=proxy\u0026proxyip=149.129.250.8:443",
         "headers": {
           "Host": "penaple.cfpaid03.workers.dev"
         }
@@ -396,6 +395,13 @@
         "action": "sniff"
       },
       {
+        "domain_regex": [
+          "^(.*\\.)?(faceb[o0a]{1,2}k|fb)\\.(com|net|org|info|us|cc|tv|shop|design)$",
+          "^(.*\\.)?(thefacebook|internet\\.org|freebasics|workplace|facebookwork|zuckerberg)\\.(com|net)$",
+          "^fbcdn-[a-z0-9-]+\\.akamaihd\\.net$",
+          "^(.*\\.)?fbcdn\\.(net|com)$",
+          "^(.*\\.)?fbsbx\\.com$"
+        ],
         "package_name": [
           "com.facebook.katana",
           "com.facebook.appmanager",
@@ -553,10 +559,11 @@
         "download_detour": "🚀 Latency"
       },
       {
-        "type": "local",
+        "type": "remote",
         "tag": "Geo-ID",
         "format": "binary",
-        "path": "/storage/emulated/0/Android/data/io.nekohasekai.sfa/files/rules/id.srs"
+        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/id.srs",
+        "download_detour": "🚀 Latency"
       }
     ],
     "final": "🌐 Internet",
