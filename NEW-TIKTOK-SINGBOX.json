@@ -59,6 +59,27 @@
     ],
     "rules": [
       {
+        "package_name": [
+          "com.facebook.katana",
+          "com.facebook.appmanager",
+          "com.facebook.system",
+          "com.facebook.lite",
+          "com.facebook.adsmanager",
+          "com.facebook.orca",
+          "com.facebook.mlite",
+          "com.instagram.android",
+          "com.whatsapp"
+        ],
+        "rule_set": [
+          "Geo-ID",
+          "FB-CIDR",
+          "Geosite-FB",
+          "Dev-FB",
+          "geosite-meta"
+        ],
+        "server": "cloudflare-dns"
+      },
+      {
         "query_type": [
           "A",
           "AAAA"
@@ -202,7 +223,7 @@
       },
       "transport": {
         "type": "ws",
-        "path": "?mode=proxy\u0026proxyip=149.129.250.8:443",
+        "path": "?mode=proxy&proxyip=149.129.250.8:443",
         "headers": {
           "Host": "penaple.cfpaid03.workers.dev"
         }
@@ -375,13 +396,6 @@
         "action": "sniff"
       },
       {
-        "domain_regex": [
-          "^(.*\\.)?(faceb[o0a]{1,2}k|fb)\\.(com|net|org|info|us|cc|tv|shop|design)$",
-          "^(.*\\.)?(thefacebook|internet\\.org|freebasics|workplace|facebookwork|zuckerberg)\\.(com|net)$",
-          "^fbcdn-[a-z0-9-]+\\.akamaihd\\.net$",
-          "^(.*\\.)?fbcdn\\.(net|com)$",
-          "^(.*\\.)?fbsbx\\.com$"
-        ],
         "package_name": [
           "com.facebook.katana",
           "com.facebook.appmanager",
@@ -392,7 +406,13 @@
           "com.facebook.mlite",
           "com.instagram.android"
         ],
-        "rule_set": "Geo-ID",
+        "rule_set": [
+          "Geo-ID",
+          "FB-CIDR",
+          "Geosite-FB",
+          "Dev-FB",
+          "geosite-meta"
+        ],
         "outbound": "🌐 Internet"
       },
       {
@@ -504,6 +524,34 @@
       }
     ],
     "rule_set": [
+      {
+        "type": "remote",
+        "tag": "FB-CIDR",
+        "format": "binary",
+        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/facebook.srs",
+        "download_detour": "🚀 Latency"
+      },
+      {
+        "type": "remote",
+        "tag": "Geosite-FB",
+        "format": "binary",
+        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/facebook.srs",
+        "download_detour": "🚀 Latency"
+      },
+      {
+        "type": "remote",
+        "tag": "Dev-FB",
+        "format": "binary",
+        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/facebook-dev.srs",
+        "download_detour": "🚀 Latency"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-meta",
+        "format": "binary",
+        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/meta.srs",
+        "download_detour": "🚀 Latency"
+      },
       {
         "type": "local",
         "tag": "Geo-ID",
