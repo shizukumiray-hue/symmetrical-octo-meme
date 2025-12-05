@@ -60,19 +60,6 @@
     ],
     "rules": [
       {
-        "package_name": [
-          "com.facebook.katana",
-          "com.facebook.appmanager",
-          "com.facebook.system",
-          "com.facebook.lite",
-          "com.facebook.adsmanager",
-          "com.facebook.orca",
-          "com.facebook.mlite",
-          "com.instagram.android"
-        ],
-        "server": "xl-local-dns"
-      },
-      {
         "query_type": [
           "A",
           "AAAA"
@@ -96,7 +83,7 @@
     {
       "type": "tun",
       "tag": "tun-in",
-      "interface_name": "tunelm0n",
+      "interface_name": "tunnelm0n",
       "mtu": 1500,
       "address": [
         "172.18.0.1/30",
