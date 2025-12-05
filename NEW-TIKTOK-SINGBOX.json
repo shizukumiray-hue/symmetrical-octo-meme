@@ -30,8 +30,7 @@
       {
         "type": "local",
         "tag": "xl-local-dns",
-        "detour": "direct-out",
-        "prefer_go": false
+        "detour": "direct-out"
       },
       {
         "type": "hosts",
