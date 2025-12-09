@@ -138,7 +138,8 @@
         "SG - Alibaba Cloud LLC [VLESS-TLS]",
         "Indonesia Trojan WS",
         "doh v2 ID Lightnode Limited",
-        "udp-tiktok-27-12-25"
+        "MY-anastasya",
+        "ss-mayumiyui"
       ],
       "url": "https://connectivitycheck.gstatic.com/generate_204",
       "interval": "3m0s",
@@ -149,9 +150,8 @@
       "type": "urltest",
       "tag": "⚙️ UDP",
       "outbounds": [
-        "udp-tiktok-27-12-25",
         "RuriAylin",
-        "ruri"
+        "ss-mayumiyui"
       ],
       "url": "https://connectivitycheck.gstatic.com/generate_204",
       "interval": "3m0s",
@@ -175,7 +175,7 @@
       },
       "transport": {
         "type": "ws",
-        "path": "/103.6.207.108-8080",
+        "path": "/31.97.50.106-443",
         "headers": {
           "Host": "kagura.mayumiyui.workers.dev"
         }
@@ -302,36 +302,6 @@
       }
     },
     {
-      "type": "vless",
-      "tag": "udp-tiktok-27-12-25",
-      "tcp_fast_open": true,
-      "domain_resolver": "cloudflare-dns",
-      "server": "api24-normal.tiktokv.com",
-      "server_port": 443,
-      "uuid": "e2da20d4-c63e-41af-803e-ac58e5583f3c",
-      "tls": {
-        "enabled": true,
-        "server_name": "sg-halocloud.vip01.qzz.io",
-        "insecure": true,
-        "alpn": [
-          "h3",
-          "h2",
-          "http/1.1"
-        ],
-        "utls": {
-          "enabled": true,
-          "fingerprint": "android"
-        }
-      },
-      "transport": {
-        "type": "ws",
-        "path": "/WpkIZAaP",
-        "headers": {
-          "Host": "sg-halocloud.vip01.qzz.io"
-        }
-      }
-    },
-    {
       "type": "trojan",
       "tag": "RuriAylin",
       "domain_resolver": "google-dns",
@@ -361,30 +331,40 @@
       }
     },
     {
-      "type": "trojan",
-      "tag": "ruri",
-      "tcp_fast_open": true,
+      "type": "shadowsocks",
+      "tag": "ss-mayumiyui",
       "server": "api24-normal.tiktokv.com",
+      "tcp_fast_open": true,
+      "domain_resolver": {
+        "server": "google-dns",
+        "rewrite_ttl": 60
+      },
       "server_port": 443,
-      "password": "a0611b1e-5f2a-4abc-b124-b200a82bb69a",
+      "method": "none",
+      "password": "41a40601-b5e1-4325-9a6a-99ab3eddc69c",
+      "plugin": "v2ray-plugin",
+      "plugin_opts": "mux=0;path=/156.244.1.250-8443;host=mayumiyui.my.id;tls=1"
+    },
+    {
+      "type": "vmess",
+      "tag": "MY-anastasya",
+      "server": "api24-normal-alisg.tiktokv.com",
+      "tcp_fast_open": true,
+      "server_port": 443,
+      "uuid": "e344b823-5af4-4374-9008-40dd1a4bc62c",
+      "security": "zero",
       "tls": {
         "enabled": true,
-        "server_name": "id3.kadalsfamily.com",
-        "alpn": [
-          "h3",
-          "h2",
-          "http/1.1"
-        ],
+        "server_name": "anastasyamayumi.qzz.io",
         "utls": {
-          "enabled": true,
-          "fingerprint": "chrome"
+          "enabled": true
         }
       },
       "transport": {
         "type": "ws",
-        "path": "/trojan-ws",
+        "path": "/45.159.51.121-32199",
         "headers": {
-          "Host": "id3.kadalsfamily.com"
+          "Host": "anastasyamayumi.qzz.io"
         }
       }
     }
