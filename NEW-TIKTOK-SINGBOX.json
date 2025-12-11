@@ -162,7 +162,7 @@
       "type": "vless",
       "tag": "DOH usat Media Indonesia WS NTLS",
       "tcp_fast_open": true,
-      "server": "api24-normal.tiktokv.com",
+      "server": "api24-normal-alisg.tiktokv.com",
       "server_port": 443,
       "uuid": "fc60147e-76b8-4bc5-b691-90b2da79e3d2",
       "tls": {
@@ -185,7 +185,7 @@
       "type": "vmess",
       "tag": "vmess Besok ID",
       "tcp_fast_open": true,
-      "server": "api24-normal.tiktokv.com",
+      "server": "api24-normal-alisg.tiktokv.com",
       "server_port": 443,
       "uuid": "3e10b87f-fac4-464c-970e-65cc0e4a54d2",
       "security": "zero",
@@ -209,7 +209,7 @@
       "type": "vless",
       "tag": "Experiment-21",
       "tcp_fast_open": true,
-      "server": "api24-normal.tiktokv.com",
+      "server": "v1.allvpn.my.id",
       "server_port": 443,
       "uuid": "12592a6d-6c02-41db-8d95-176a908fe8e0",
       "tls": {
@@ -232,7 +232,7 @@
       "type": "vless",
       "tag": "SG - Alibaba Cloud LLC [VLESS-TLS]",
       "tcp_fast_open": true,
-      "server": "api24-normal.tiktokv.com",
+      "server": "v1.allvpn.my.id",
       "server_port": 443,
       "uuid": "20acb48b-83eb-429f-be36-52e69847219b",
       "tls": {
@@ -255,7 +255,7 @@
       "type": "trojan",
       "tag": "Indonesia Trojan WS",
       "tcp_fast_open": true,
-      "server": "api24-normal.tiktokv.com",
+      "server": "api24-normal-alisg.tiktokv.com",
       "server_port": 443,
       "password": "63bd9c49-9bd0-4a70-8152-c005096a8039",
       "tls": {
@@ -305,18 +305,13 @@
       "type": "trojan",
       "tag": "RuriAylin",
       "domain_resolver": "google-dns",
-      "server": "api24-normal.tiktokv.com",
+      "server": "v1.allvpn.my.id",
       "server_port": 443,
       "password": "a0611b1e-5f2a-4abc-b124-b200a82bb69a",
       "tls": {
         "enabled": true,
         "server_name": "id3.kadalsfamily.com",
-        "insecure": true,
-        "alpn": [
-          "h3",
-          "h2",
-          "http/1.1"
-        ],
+        "insecure": false,
         "utls": {
           "enabled": true,
           "fingerprint": "chrome"
@@ -348,7 +343,7 @@
     {
       "type": "vmess",
       "tag": "MY-anastasya",
-      "server": "api24-normal-alisg.tiktokv.com",
+      "server": "api24-normal.tiktokv.com.cdn.cloudflare.net",
       "tcp_fast_open": true,
       "server_port": 443,
       "uuid": "e344b823-5af4-4374-9008-40dd1a4bc62c",
