@@ -44,7 +44,9 @@
           ],
           "cloudflare-dns.com": [
             "104.16.248.249",
-            "104.16.249.249"
+            "104.16.249.249",
+            "2606:4700::6810:f8f9",
+            "2606:4700::6810:f9f9"
           ]
         }
       },
@@ -57,6 +59,12 @@
     ],
     "rules": [
       {
+        "domain_suffix": [
+          "facebook.com",
+          "fbcdn.net",
+          "instagram.com",
+          "whatsapp.com"
+        ],
         "package_name": [
           "com.facebook.katana",
           "com.facebook.lite",
@@ -406,12 +414,44 @@
         "outbound": "🌐 Internet"
       },
       {
+        "rule_set": [
+          "instagram-srs"
+        ],
+        "package_name": [
+          "com.instagram.android",
+          "com.instagram.lite",
+          "com.instagram.barcelona"
+        ],
+        "outbound": "🌐 Internet"
+      },
+      {
+        "rule_set": [
+          "FB-CIDR",
+          "Geosite-FB",
+          "Dev-FB",
+          "geosite-meta"
+        ],
+        "domain": [
+          "facebook.com",
+          "www.facebook.com",
+          "messenger.com",
+          "instagram.com",
+          "whatsapp.com",
+          "threads.net",
+          "meta.com"
+        ],
+        "domain_suffix": [
+          "fbcdn.net",
+          "facebook.net",
+          "cdninstagram.com",
+          "whatsapp.net",
+          "accountkit.com",
+          "oculus.com"
+        ],
         "domain_regex": [
-          "^(.*\\.)?(faceb[o0a]{1,2}k|fb)\\.(com|net|org|info|us|cc|tv|shop|design)$",
-          "^(.*\\.)?(thefacebook|internet\\.org|freebasics|workplace|facebookwork|zuckerberg)\\.(com|net)$",
-          "^fbcdn-[a-z0-9-]+\\.akamaihd\\.net$",
-          "^(.*\\.)?fbcdn\\.(net|com)$",
-          "^(.*\\.)?fbsbx\\.com$"
+          "^scontent\\..*\\.fbcdn\\.net$",
+          "^video\\..*\\.fbcdn\\.net$",
+          "^instagram\\..*\\.fbcdn\\.net$"
         ],
         "package_name": [
           "com.facebook.katana",
@@ -428,20 +468,11 @@
           "com.facebook.fbgames",
           "com.facebook.gamingservices",
           "com.facebook.creatorstudio",
-          "com.instagram.android",
-          "com.instagram.lite",
-          "com.instagram.barcelona",
           "com.oculus.appmanager",
           "com.oculus.systemdriver",
           "com.oculus.vrshell",
           "com.oculus.home",
           "com.oculus.horizon"
-        ],
-        "rule_set": [
-          "FB-CIDR",
-          "Geosite-FB",
-          "Dev-FB",
-          "geosite-meta"
         ],
         "outbound": "🌐 Internet"
       },
@@ -450,6 +481,9 @@
         "mode": "and",
         "rules": [
           {
+            "rule_set": [
+              "whatsapp-srs"
+            ],
             "package_name": [
               "com.whatsapp",
               "com.whatsapp.w4b",
@@ -467,6 +501,9 @@
         "mode": "and",
         "rules": [
           {
+            "rule_set": [
+              "whatsapp-srs"
+            ],
             "package_name": [
               "com.whatsapp",
               "com.whatsapp.w4b",
@@ -494,6 +531,20 @@
       }
     ],
     "rule_set": [
+      {
+        "type": "remote",
+        "tag": "whatsapp-srs",
+        "format": "binary",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/sing/geo/geosite/whatsapp.srs",
+        "download_detour": "🚀 Latency"
+      },
+      {
+        "type": "remote",
+        "tag": "instagram-srs",
+        "format": "binary",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/sing/geo/geosite/instagram.srs",
+        "download_detour": "🚀 Latency"
+      },
       {
         "type": "remote",
         "tag": "FB-CIDR",
