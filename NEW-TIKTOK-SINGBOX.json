@@ -2,7 +2,7 @@
   "log": {
     "disabled": false,
     "level": "info",
-    "output": "log/Nekobox.log",
+    "output": "Nekobox.log",
     "timestamp": true
   },
   "dns": {
