@@ -1,0 +1,561 @@
+{
+  "log": {
+    "disabled": false,
+    "level": "info",
+    "output": "Nekobox.log",
+    "timestamp": true
+  },
+  "dns": {
+    "servers": [
+      {
+        "type": "https",
+        "tag": "cloudflare-dns",
+        "detour": "🚀 Latency",
+        "domain_resolver": {
+          "server": "hosts-dns",
+          "strategy": "prefer_ipv4"
+        },
+        "server": "cloudflare-dns.com"
+      },
+      {
+        "type": "https",
+        "tag": "google-dns",
+        "detour": "🚀 Latency",
+        "domain_resolver": {
+          "server": "hosts-dns",
+          "strategy": "prefer_ipv4"
+        },
+        "server": "dns.google"
+      },
+      {
+        "type": "udp",
+        "tag": "xl-local-dns",
+        "server": "112.215.203.246",
+        "domain_resolver": {
+          "server": "hosts-dns",
+          "strategy": "prefer_ipv4"
+        },
+        "server_port": 53,
+        "detour": "direct-out"
+      },
+      {
+        "type": "hosts",
+        "tag": "hosts-dns",
+        "predefined": {
+          "dns.google": [
+            "8.8.8.8",
+            "8.8.4.4",
+            "2001:4860:4860::8844",
+            "2001:4860:4860::8888"
+          ],
+          "cloudflare-dns.com": [
+            "104.16.248.249",
+            "104.16.249.249",
+            "2606:4700::6810:f8f9",
+            "2606:4700::6810:f9f9"
+          ],
+          "112.215.203.246": [
+            "112.215.203.247",
+            "2400:9800:1b::246",
+            "2400:9800:1b::247",
+            "112.215.198.248",
+            "112.215.198.254"
+          ]
+        }
+      },
+      {
+        "type": "fakeip",
+        "tag": "remote",
+        "inet4_range": "198.18.0.0/15",
+        "inet6_range": "fc00::/18"
+      }
+    ],
+    "rules": [
+      {
+        "domain_suffix": [
+          "facebook.com",
+          "fbcdn.net",
+          "instagram.com",
+          "whatsapp.com"
+        ],
+        "package_name": [
+          "com.facebook.katana"
+        ],
+        "server": "xl-local-dns"
+      },
+      {
+        "query_type": [
+          "A",
+          "AAAA"
+        ],
+        "server": "remote"
+      }
+    ],
+    "disable_cache": false,
+    "cache_capacity": 2048,
+    "disable_expire": false,
+    "reverse_mapping": true,
+    "final": "cloudflare-dns",
+    "strategy": "prefer_ipv4"
+  },
+  "inbounds": [
+    {
+      "type": "mixed",
+      "tag": "mixed-in",
+      "listen": "0.0.0.0",
+      "listen_port": 9001,
+      "tcp_fast_open": true,
+      "sniff": true,
+      "sniff_override_destination": true
+    },
+    {
+      "type": "tun",
+      "tag": "tun-in",
+      "interface_name": "tunnelm0n",
+      "mtu": 1500,
+      "address": [
+        "172.18.0.1/30",
+        "fdfe:dcba:9876::1/126"
+      ],
+      "auto_route": true,
+      "stack": "mixed",
+      "sniff": true,
+      "endpoint_independent_nat": true
+    }
+  ],
+  "outbounds": [
+    {
+      "type": "direct",
+      "tag": "direct-out"
+    },
+    {
+      "type": "selector",
+      "tag": "🌐 Internet",
+      "outbounds": [
+        "🚀 Latency",
+        "⚙️ UDP",
+        "🌏 Globe"
+      ],
+      "default": "🚀 Latency"
+    },
+    {
+      "type": "urltest",
+      "tag": "🚀 Latency",
+      "outbounds": [
+        "ID Amazon",
+        "ID Lightnode Limited",
+        "ID Rotasi",
+        "doh v2 ID Lightnode Limited"
+      ],
+      "url": "https://connectivitycheck.gstatic.com/generate_204",
+      "interval": "3m0s",
+      "tolerance": 50,
+      "idle_timeout": "5m0s"
+    },
+    {
+      "type": "urltest",
+      "tag": "🌏 Globe",
+      "outbounds": [
+        "MY TMNET",
+        "SG Alibaba Cloud",
+        "SG Amazon Data Services Singapore",
+        "SG 16 COLLYER QUAY"
+      ],
+      "url": "https://connectivitycheck.gstatic.com/generate_204",
+      "interval": "3m0s",
+      "tolerance": 50,
+      "idle_timeout": "5m0s"
+    },
+    {
+      "type": "urltest",
+      "tag": "⚙️ UDP",
+      "outbounds": [
+        "RuriAylin"
+      ],
+      "url": "https://connectivitycheck.gstatic.com/generate_204",
+      "interval": "3m0s",
+      "tolerance": 60,
+      "idle_timeout": "5m0s"
+    },
+    {
+      "type": "vmess",
+      "tag": "ID Amazon",
+      "tcp_fast_open": true,
+      "server": "api24-normal-alisg.tiktokv.com",
+      "server_port": 443,
+      "uuid": "3e10b87f-fac4-464c-970e-65cc0e4a54d2",
+      "security": "zero",
+      "tls": {
+        "enabled": true,
+        "server_name": "beatrice.shirokoyumi.workers.dev",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/43.218.77.16-1443",
+        "headers": {
+          "Host": "beatrice.shirokoyumi.workers.dev"
+        }
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "ID Lightnode Limited",
+      "tcp_fast_open": true,
+      "server": "v1.allvpn.my.id",
+      "server_port": 443,
+      "uuid": "12592a6d-6c02-41db-8d95-176a908fe8e0",
+      "tls": {
+        "enabled": true,
+        "server_name": "penaple.cfpaid03.workers.dev",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "?mode=proxy\u0026proxyip=156.244.1.250:8443",
+        "headers": {
+          "Host": "penaple.cfpaid03.workers.dev"
+        }
+      }
+    },
+    {
+      "type": "trojan",
+      "tag": "ID Rotasi",
+      "tcp_fast_open": true,
+      "server": "api24-normal-alisg.tiktokv.com",
+      "server_port": 443,
+      "password": "63bd9c49-9bd0-4a70-8152-c005096a8039",
+      "tls": {
+        "enabled": true,
+        "server_name": "doh.terakomari.workers.dev",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/ID",
+        "headers": {
+          "Host": "doh.terakomari.workers.dev"
+        }
+      }
+    },
+    {
+      "type": "trojan",
+      "tag": "doh v2 ID Lightnode Limited",
+      "tcp_fast_open": true,
+      "domain_resolver": {
+        "server": "cloudflare-dns",
+        "rewrite_ttl": 60
+      },
+      "server": "api24-normal.tiktokv.com",
+      "server_port": 443,
+      "password": "fc22189d-f08c-46e1-b3ba-d3eb7f375df1",
+      "tls": {
+        "enabled": true,
+        "server_name": "doh.gotox74478.workers.dev",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/156.244.1.250-8443",
+        "headers": {
+          "Host": "doh.gotox74478.workers.dev"
+        }
+      }
+    },
+    {
+      "type": "trojan",
+      "tag": "RuriAylin",
+      "domain_resolver": "google-dns",
+      "server": "v1.allvpn.my.id",
+      "server_port": 443,
+      "password": "a0611b1e-5f2a-4abc-b124-b200a82bb69a",
+      "tls": {
+        "enabled": true,
+        "server_name": "id3.kadalsfamily.com",
+        "insecure": false,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/trojan-ws",
+        "headers": {
+          "Host": "id3.kadalsfamily.com"
+        }
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "MY TMNET",
+      "server": "api24-normal-alisg.tiktokv.com",
+      "server_port": 443,
+      "uuid": "8d9d01e1-2ce7-41d1-b16a-156d2046b1a9",
+      "tcp_fast_open": true,
+      "tls": {
+        "enabled": true,
+        "server_name": "anastasyamayumi.qzz.io",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/58.27.117.24-443",
+        "headers": {
+          "Host": "anastasyamayumi.qzz.io"
+        }
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "SG Alibaba Cloud",
+      "server": "api24-normal-alisg.tiktokv.com",
+      "server_port": 443,
+      "uuid": "8d9d01e1-2ce7-41d1-b16a-156d2046b1a9",
+      "tcp_fast_open": true,
+      "tls": {
+        "enabled": true,
+        "server_name": "dash-doh.manastesia.workers.dev",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/47.236.119.190-51342",
+        "headers": {
+          "Host": "dash-doh.manastesia.workers.dev"
+        }
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "SG Amazon Data Services Singapore",
+      "server": "api24-normal-alisg.tiktokv.com",
+      "server_port": 443,
+      "uuid": "8d9d01e1-2ce7-41d1-b16a-156d2046b1a9",
+      "tcp_fast_open": true,
+      "tls": {
+        "enabled": true,
+        "server_name": "dash-doh.manastesia.workers.dev",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/47.130.35.116-8888",
+        "headers": {
+          "Host": "dash-doh.manastesia.workers.dev"
+        }
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "SG 16 COLLYER QUAY",
+      "server": "api24-normal-alisg.tiktokv.com",
+      "server_port": 443,
+      "uuid": "8d9d01e1-2ce7-41d1-b16a-156d2046b1a9",
+      "tcp_fast_open": true,
+      "tls": {
+        "enabled": true,
+        "server_name": "vmees-vless-trojan-ss.manastesia.workers.dev",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/150.109.11.223-443",
+        "headers": {
+          "Host": "vmees-vless-trojan-ss.manastesia.workers.dev"
+        }
+      }
+    }
+  ],
+  "route": {
+    "rules": [
+      {
+        "action": "sniff"
+      },
+      {
+        "rule_set": [
+          "Geo-ID"
+        ],
+        "outbound": "🌐 Internet"
+      },
+      {
+        "domain": [
+          "facebook.com",
+          "messenger.com",
+          "instagram.com",
+          "whatsapp.com",
+          "threads.net",
+          "meta.com",
+          "fbcdn-a.akamaihd.net"
+        ],
+        "domain_suffix": [
+          "fbcdn.net",
+          "facebook.net",
+          "cdninstagram.com",
+          "whatsapp.net",
+          "accountkit.com"
+        ],
+        "domain_regex": [
+          "^scontent\\..*\\.fbcdn\\.net$",
+          "^video\\..*\\.fbcdn\\.net$",
+          "^instagram\\..*\\.fbcdn\\.net$"
+        ],
+        "outbound": "🌐 Internet"
+      },
+      {
+        "type": "logical",
+        "mode": "and",
+        "rules": [
+          {
+            "domain_suffix": [
+              "wa.me",
+              "whatsapp-plus.info",
+              "whatsapp-plus.me",
+              "whatsapp-plus.net",
+              "whatsapp.cc",
+              "whatsapp.biz",
+              "whatsapp.com",
+              "whatsapp.info",
+              "whatsapp.net",
+              "whatsapp.org",
+              "whatsapp.tv",
+              "whatsappbrand.com",
+              "graph.whatsapp.com",
+              "graph.whatsapp.net"
+            ],
+            "domain_keyword": "whatsapp",
+            "ip_cidr": [
+              "158.85.224.160/27",
+              "158.85.46.128/27",
+              "158.85.5.192/27",
+              "173.192.222.160/27",
+              "173.192.231.32/27",
+              "18.194.0.0/15",
+              "184.173.128.0/17",
+              "208.43.122.128/27",
+              "34.224.0.0/12",
+              "50.22.198.204/30",
+              "54.242.0.0/15"
+            ]
+          },
+          {
+            "network": "tcp"
+          }
+        ],
+        "outbound": "🌐 Internet"
+      },
+      {
+        "type": "logical",
+        "mode": "and",
+        "rules": [
+          {
+            "domain_suffix": [
+              "wa.me",
+              "whatsapp-plus.info",
+              "whatsapp-plus.me",
+              "whatsapp-plus.net",
+              "whatsapp.cc",
+              "whatsapp.biz",
+              "whatsapp.com",
+              "whatsapp.info",
+              "whatsapp.net",
+              "whatsapp.org",
+              "whatsapp.tv",
+              "whatsappbrand.com",
+              "graph.whatsapp.com",
+              "graph.whatsapp.net"
+            ],
+            "domain_keyword": "whatsapp",
+            "ip_cidr": [
+              "158.85.224.160/27",
+              "158.85.46.128/27",
+              "158.85.5.192/27",
+              "173.192.222.160/27",
+              "173.192.231.32/27",
+              "18.194.0.0/15",
+              "184.173.128.0/17",
+              "208.43.122.128/27",
+              "34.224.0.0/12",
+              "50.22.198.204/30",
+              "54.242.0.0/15"
+            ]
+          },
+          {
+            "network": "udp"
+          }
+        ],
+        "outbound": "⚙️ UDP"
+      },
+      {
+        "type": "logical",
+        "mode": "or",
+        "rules": [
+          {
+            "protocol": "dns"
+          },
+          {
+            "port": 53
+          }
+        ],
+        "action": "hijack-dns"
+      }
+    ],
+    "rule_set": [
+      {
+        "type": "remote",
+        "tag": "Geo-ID",
+        "format": "binary",
+        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/id.srs",
+        "download_detour": "🚀 Latency"
+      }
+    ],
+    "final": "🌐 Internet",
+    "auto_detect_interface": true,
+    "default_domain_resolver": {
+      "server": "xl-local-dns",
+      "rewrite_ttl": 60
+    }
+  },
+  "experimental": {
+    "clash_api": {
+      "external_controller": "0.0.0.0:9090",
+      "external_ui": "dist",
+      "external_ui_download_url": "https://github.com/Zephyruso/zashboard/releases/latest/download/dist-no-fonts.zip",
+      "external_ui_download_detour": "🚀 Latency",
+      "default_mode": "rule",
+      "access_control_allow_origin": "*"
+    },
+    "cache_file": {
+      "enabled": true,
+      "path": "cache.db",
+      "cache_id": "singbox_cache",
+      "store_fakeip": true,
+      "store_rdrc": true,
+      "rdrc_timeout": "1d"
+    }
+  }
+}
