@@ -489,19 +489,19 @@
           "accountkit.com",
           "fna.fbcdn.net"
         ],
+        "domain_regex": [
+          "^external.*\\.fbcdn\\.net$",
+          "^instagram.*\\.fbcdn\\.net$",
+          "^.+\\.fna\\.fbcdn\\.net$",
+          "^scontent.*\\.fbcdn\\.net$",
+          "^video.*\\.fbcdn\\.net$",
+          "^static.*\\.fbcdn\\.net$"
+        ],
         "domain_keyword": [
           "facebook",
           "instagram",
           "whatsapp",
           "messenger"
-        ],
-        "domain_regex": [
-          "^scontent.*\\.fbcdn\\.net$",
-          "^video.*\\.fbcdn\\.net$",
-          "^static.*\\.fbcdn\\.net$",
-          "^external.*\\.fbcdn\\.net$",
-          "^instagram.*\\.fbcdn\\.net$",
-          "^.+\\.fna\\.fbcdn\\.net$"
         ],
         "outbound": "🌐 Internet"
       },
